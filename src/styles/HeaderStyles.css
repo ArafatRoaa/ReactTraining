@@ -1,0 +1,17 @@
+
+.h1 {
+  font-size: 20px;
+  color: black;
+}
+
+/* @media (min-width: 501px) {
+  .resp {
+    padding: 10px 60px;
+  }
+}
+
+@media (max-width: 500px) {
+  .resp {
+    padding: 10px 15px;
+  }
+} */
