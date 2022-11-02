@@ -21,7 +21,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="home" element={<Home />} />
           <Route path="details" element={<Details />} />
           <Route element={<Home />} />
       </Routes>

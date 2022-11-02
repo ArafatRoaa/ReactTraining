@@ -3,11 +3,11 @@ import React from "react";
 
 function Property(props) {
   return (
-    <Stack direction="row" container="true" spacing={1} alignItems="center">
-      <Typography variant="h6" fontSize={19} fontWeight={700}>
+    <Stack direction="row" container="true" spacing={1}>
+      <Typography variant="h3" fontSize={17} fontWeight={600}>
         {props.title}:
       </Typography>
-      <Typography variant="h6" fontSize={19} fontWeight={600}>
+      <Typography variant="h3" fontSize={17} fontWeight={500}>
         {props.sub}
       </Typography>
     </Stack>

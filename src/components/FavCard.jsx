@@ -1,6 +1,7 @@
 import { IconButton, Stack, Typography } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import React from "react";
+import Flag from '../assets/af.svg';
 
 function FavCard() {
   return (
@@ -13,7 +14,7 @@ function FavCard() {
         spacing={1}
       >
         <img
-          src="./src/assets/af.svg"
+          src={Flag}
           alt="USA"
           height="25"
           style={{ borderRadius: 12 }}

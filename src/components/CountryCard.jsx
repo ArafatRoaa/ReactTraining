@@ -3,21 +3,22 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  Link,
   Stack,
   Typography,
 } from "@mui/material";
 import React from "react";
-import styled from "styled-components";
-import Property from "./Property";
+import Flag from '../assets/af.svg';
 
 function CountryCard(props) {
   return (
-    <Card sx={{ height: 370 }}>
-      <CardActionArea sx={{ paddingBottom: 5 }} href='/details'>
+    <Link href='details' underline="none">
+    <Card sx={{ height: 370, minWidth: 170 }}>
+      <CardActionArea sx={{ paddingBottom: 5 }}>
         <CardMedia
           component="img"
           height="170"
-          src="./src/assets/af.svg"
+          src={Flag}
           alt="Afghanistan"
         />
         <CardContent sx={{ paddingX: 4, paddingY: 3}}>
@@ -59,6 +60,7 @@ function CountryCard(props) {
         </CardContent>
       </CardActionArea>
     </Card>
+    </Link>
   );
 }
 
