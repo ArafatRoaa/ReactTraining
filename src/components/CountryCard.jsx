@@ -3,16 +3,21 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Link,
   Stack,
   Typography,
 } from "@mui/material";
 import React from "react";
 import Flag from '../assets/af.svg';
+import { Link } from "react-router-dom";
+import styled from 'styled-components';
+
+const CustomizedLink = styled(Link)`
+  text-decoration: none;
+`;
 
 function CountryCard(props) {
   return (
-    <Link href='details' underline="none">
+    <CustomizedLink to='details'>
     <Card sx={{ height: 370, minWidth: 170 }}>
       <CardActionArea sx={{ paddingBottom: 5 }}>
         <CardMedia
@@ -60,7 +65,7 @@ function CountryCard(props) {
         </CardContent>
       </CardActionArea>
     </Card>
-    </Link>
+    </CustomizedLink>
   );
 }
 

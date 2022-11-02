@@ -1,4 +1,4 @@
-import { Button, Grid, Link, Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
 import Header from "../components/Header";
 import {
@@ -9,6 +9,11 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Property from "../components/Property";
 import Border from "../components/Border";
 import Flag from '../assets/af.svg';
+import { Link } from "react-router-dom";
+
+const CustomizedLink = styled(Link)`
+  text-decoration: none;
+`;
 
 function Details() {
   return (
@@ -17,14 +22,14 @@ function Details() {
       <CustomizedContainer maxWidth='xl' sx={{ margin: 0 }}>
         <Grid container justifyContent="flex-start">
           <Grid item xs={5} md={2}>
-            <Link href='/' underline="none">
+            <CustomizedLink to='/'>
             <Button
               sx={{ width: "70%", paddingY: 1, color: 'black', fontSize: 16, fontWeight: 600, textTransform: 'none', boxShadow: '0px 2px 5px rgb(0 0 0 / 15%)' }}
               startIcon={<ArrowBackIcon />}
             >
               Back
             </Button>
-            </Link>
+            </CustomizedLink>
           </Grid>
         </Grid>
         <Grid container sx={{ marginTop: 7 }} justifyContent="space-between">
