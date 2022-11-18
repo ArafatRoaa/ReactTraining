@@ -7,7 +7,6 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import Flag from '../assets/af.svg';
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -17,14 +16,14 @@ const CustomizedLink = styled(Link)`
 
 function CountryCard(props) {
   return (
-    <CustomizedLink to='details'>
+    <CustomizedLink to={'details/' + props.cca2}>
     <Card sx={{ height: 370, minWidth: 170 }}>
       <CardActionArea sx={{ paddingBottom: 5 }}>
         <CardMedia
           component="img"
           height="170"
-          src={Flag}
-          alt="Afghanistan"
+          src={props.img}
+          alt={props.name}
         />
         <CardContent sx={{ paddingX: 4, paddingY: 3}}>
           <Typography
@@ -34,7 +33,7 @@ function CountryCard(props) {
             component="div"
             sx={{marginBottom:2, fontSize: 18.5}}
           >
-            United States of America
+            {props.name}
           </Typography>
           <Stack direction="column" container='true' spacing={0.5}>
             <Stack direction="row" container='true' spacing={0.5}>
@@ -42,7 +41,7 @@ function CountryCard(props) {
                 Population:
               </Typography>
               <Typography variant="subtitle2" fontWeight={300}>
-                123.456.432
+                {props.population.toLocaleString()}
               </Typography>
             </Stack>
             <Stack container spacing={0.5} direction="row">
@@ -50,7 +49,7 @@ function CountryCard(props) {
                 Region:
               </Typography>
               <Typography variant="subtitle2" fontWeight={300}>
-                Europe
+                {props.region}
               </Typography>
             </Stack>
             <Stack container spacing={0.5} direction="row">
@@ -58,7 +57,7 @@ function CountryCard(props) {
                 Capital:
               </Typography>
               <Typography variant="subtitle2" fontWeight={300}>
-                Afghanistan
+                {props.capital}
               </Typography>
             </Stack>
           </Stack>

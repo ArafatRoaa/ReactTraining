@@ -19,10 +19,10 @@ export const CustomizedInput = styled(InputBase)`
   background-color: white;
 `;
 
+// & .MuiOutlinedInput-notchedOutline {
+//   border: 0;
+// }
 export const CustomizedSelect = styled(Select)`
-& .MuiOutlinedInput-notchedOutline {
-  border: 0;
-}
   height: 50px;
   box-shadow: 0px 2px 5px rgb(0 0 0 / 15%);
   border-radius: 5px;

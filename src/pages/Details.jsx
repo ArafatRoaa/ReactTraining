@@ -1,5 +1,5 @@
 import { Button, Grid, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import {
   CustomizedContainer
@@ -8,14 +8,66 @@ import styled from 'styled-components';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Property from "../components/Property";
 import Border from "../components/Border";
-import Flag from '../assets/af.svg';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CustomizedLink = styled(Link)`
   text-decoration: none;
 `;
 
 function Details() {
+  const params = useParams();
+  const cca2 = params.cca2;
+  const [country, setCountry] = useState({});
+  const [nativeName, setNativeName] = useState('');
+  const [languages, setLanguages] = useState([]);
+  const [currencies, setCurrencies] = useState([]);
+  const [borders, setBorders] = useState([]);
+  var borderList = [];
+
+  useEffect(() => {
+    async function getData() {
+      let countryArr, response;
+      let url = "https://restcountries.com/v3.1/alpha/" + `${cca2}`;
+      try {
+        response = await fetch(url);
+        countryArr = await response.json();
+        setCountry(countryArr[0]);
+        setNativeName(Object.values(countryArr[0].name.nativeName)[0].common);
+        setLanguages(Object.values(countryArr[0].languages).join(", "));
+        setCurrencies(Object.values(countryArr[0].currencies).map(cur => cur.name).join(", "));
+        countryArr[0].borders?.forEach(cca3 => {
+          getBorder(cca3);
+        });
+      } catch (error) {
+      console.log(error);
+      }
+    }
+
+    async function getBorder(cca3){
+      let countryArr, response;
+      let url = "https://restcountries.com/v3.1/alpha/" + `${cca3}`;
+      try {
+        response = await fetch(url);
+        countryArr = await response.json();
+        setBorders(oldArray => [...oldArray, countryArr[0].name.common]);
+      } catch (error) {
+      console.log(error);
+      }
+    }
+
+    getData();
+
+  }, []);
+
+
+  borders.forEach(border => {
+    if(!borderList.includes(border)){
+      borderList.push(border);
+    }});
+
+  console.log(borderList);
+  console.log(country);
+
   return (
     <>
       <Header />
@@ -34,11 +86,11 @@ function Details() {
         </Grid>
         <Grid container sx={{ marginTop: 7 }} justifyContent="space-between">
           <Grid item lg={6}>
-            <img src={Flag} alt="USA" width='80%' style={{minWidth: 340}}/>
+            <img src={country.flags?.svg} alt={country.name?.common} width='80%' height='380' style={{minWidth: 340}}/>
           </Grid>
           <Grid item lg={6} sx={{ paddingTop: 5}}>
             <Typography variant="h2" fontWeight="bold" fontSize={26}>
-              Belgium
+              {country.name?.official}
             </Typography>
             <Stack
               direction="row"
@@ -47,28 +99,28 @@ function Details() {
               sx={{ marginTop: 4 }}
             >
               <Stack direction="column" container spacing={1.5}>
-                <Property title='Native Name' sub='Belgie'/>
-                <Property title='Population' sub='11,319,511'/>
-                <Property title='Region' sub='Europe'/>
-                <Property title='Sub Region' sub='Western Europe'/>
-                <Property title='Capital' sub='Brussels'/>
+                <Property title='Native Name' sub={nativeName}/>
+                <Property title='Population' sub={country.population?.toLocaleString()}/>
+                <Property title='Region' sub={country.region}/>
+                <Property title='Sub Region' sub={country.subregion}/>
+                <Property title='Capital' sub={country.capital}/>
               </Stack>
               <Stack direction="column" container spacing={1.5} sx={{ marginTop: { xs: 5, lg: 0 }}}>
-                <Property title='Top Level Domain' sub='.be'/>
-                <Property title='Currencies' sub='Euro'/>
-                <Property title='Languages' sub='Dutch, French, German'/>
+                <Property title='Top Level Domain' sub={country.tld}/>
+                <Property title='Currencies' sub={currencies}/>
+                <Property title='Languages' sub={languages}/>
               </Stack>
             </Stack>
-            <Stack direction='row' container spacing={{xs: 0, sm: 2}} flexWrap='wrap' alignItems='center' sx={{ marginTop: 6 }}>
-              <Typography variant="h3" fontWeight="600" fontSize={18}>
-                Border Countries:
-              </Typography>
-              <Stack direction='row' container spacing={2} flexWrap='wrap'>
-                <Border name='France'/>
-                <Border name='Germany'/>
-                <Border name='Netherlands'/>
-              </Stack>
+            { borders.length > 0 && 
+            <Stack direction='row' container rowGap={1} columnGap={1} flexWrap='wrap' alignItems='center' sx={{ marginTop: 6 }}>
+            <Typography variant="h3" fontWeight="600" fontSize={18}>
+              Border Countries:
+            </Typography>
+            <Stack direction='row' container rowGap={1.5} columnGap={2} flexWrap='wrap'>
+              {borderList.map((border) => <Border name={border}/>)}
             </Stack>
+          </Stack>
+            }
           </Grid>
         </Grid>
       </CustomizedContainer>

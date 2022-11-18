@@ -20,8 +20,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Routes>
-        <Route path="" element={<Home />} />
-        <Route path="/details" element={<Details />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/details/:cca2" element={<Details />} />
         <Route element={<Home />} />
       </Routes>
     </ThemeProvider>
