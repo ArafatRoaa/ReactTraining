@@ -19,6 +19,8 @@
     "@mui/styled-engine-sc": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dnd": "latest",
+    "react-dnd-html5-backend": "latest",
     "styled-components": "latest"
   },
   "devDependencies": {

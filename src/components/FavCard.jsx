@@ -1,9 +1,9 @@
 import { IconButton, Stack, Typography } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import React from "react";
-import Flag from '../assets/af.svg';
 
-function FavCard() {
+function FavCard({country, toDelete}) {
+
   return (
     <Stack direction="row" alignItems="center" justifyContent="space-between">
       <Stack
@@ -14,16 +14,17 @@ function FavCard() {
         spacing={1}
       >
         <img
-          src={Flag}
+          src={country.img}
           alt="USA"
           height="25"
           style={{ borderRadius: 12 }}
         />
         <Typography variant="h6" fontWeight="700" sx={{ fontSize: 13 }}>
-          United States of America
+          {country.name}
         </Typography>
       </Stack>
       <IconButton
+        onClick={toDelete}
         size="small"
         sx={{ color: "black", backgroundColor: "#eeeeee" }}
       >

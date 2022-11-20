@@ -9,21 +9,30 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
+import { useDrag } from 'react-dnd';
 
 const CustomizedLink = styled(Link)`
   text-decoration: none;
 `;
 
-function CountryCard(props) {
+function CountryCard({cca2, img, name, population, region, capital}) {
+  const [{isDragging}, drag] = useDrag(() => ({
+    type: 'card',
+    item: {cca2, img, name, population, region, capital},
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   return (
-    <CustomizedLink to={'details/' + props.cca2}>
-    <Card sx={{ height: 370, minWidth: 170 }}>
+    <CustomizedLink to={'details/' + cca2}>
+    <Card ref={drag} sx={{ height: 370, minWidth: 170, opacity: isDragging ? 0.5 : 1 }}>
       <CardActionArea sx={{ paddingBottom: 5 }}>
         <CardMedia
           component="img"
           height="170"
-          src={props.img}
-          alt={props.name}
+          src={img}
+          alt={name}
         />
         <CardContent sx={{ paddingX: 4, paddingY: 3}}>
           <Typography
@@ -33,7 +42,7 @@ function CountryCard(props) {
             component="div"
             sx={{marginBottom:2, fontSize: 18.5}}
           >
-            {props.name}
+            {name}
           </Typography>
           <Stack direction="column" container='true' spacing={0.5}>
             <Stack direction="row" container='true' spacing={0.5}>
@@ -41,7 +50,7 @@ function CountryCard(props) {
                 Population:
               </Typography>
               <Typography variant="subtitle2" fontWeight={300}>
-                {props.population.toLocaleString()}
+                {population.toLocaleString()}
               </Typography>
             </Stack>
             <Stack container spacing={0.5} direction="row">
@@ -49,7 +58,7 @@ function CountryCard(props) {
                 Region:
               </Typography>
               <Typography variant="subtitle2" fontWeight={300}>
-                {props.region}
+                {region}
               </Typography>
             </Stack>
             <Stack container spacing={0.5} direction="row">
@@ -57,7 +66,7 @@ function CountryCard(props) {
                 Capital:
               </Typography>
               <Typography variant="subtitle2" fontWeight={300}>
-                {props.capital}
+                {capital}
               </Typography>
             </Stack>
           </Stack>
